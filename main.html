@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/styles.css">
+  <title>Main</title>
+</head>
+<body>
+  <div class="container">
+    <h2>Bucket List</h2>
+    <input type="text" id="bucketTitle" placeholder="Bucket List Title">
+    <textarea id="bucketDescription" placeholder="Bucket List Description"></textarea>
+    <button onclick="addBucket()">Add Bucket List</button>
+    <button onclick="goToBucketList()">Go to Bucket List</button>
+    <button onclick="logout()">Logout</button>
+  </div>
+  <script type="module">
+    import { addBucketList, logoutUser, checkAuthState } from "./js/app.js";
+    
+    window.addBucket = () => {
+      const title = document.getElementById("bucketTitle").value;
+      const description = document.getElementById("bucketDescription").value;
+      addBucketList(title, description);
+    };
+
+    window.logout = logoutUser;
+
+    // Function to navigate to bucketlist.html
+    window.goToBucketList = () => {
+      checkAuthState().then((user) => {
+        if (user) {
+          window.location.href = 'bucketlist.html'; // Redirect to bucketlist.html if logged in
+        } else {
+          alert("You need to log in first!");
+          window.location.href = 'login.html'; // Redirect to login page if not logged in
+        }
+      }).catch((error) => {
+        console.error("Error checking auth state:", error);
+        alert("Error while checking auth state.");
+      });
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/styles.css">
+  <title>Register</title>
+</head>
+<body>
+  <div class="container">
+    <h2>Register</h2>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <input type="password" id="confirm-password" placeholder="Confirm Password" required>
+    <button onclick="register()">Register</button>
+    <button onclick="goToLogin()">Back to Login</button>
+  </div>
+
+  <script type="module">
+    import { registerUser } from "./js/app.js";
+    
+    window.register = () => {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirm-password").value;
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+      }
+
+      registerUser(email, password);
+    };
+
+    // Function to navigate to login page
+    window.goToLogin = () => {
+      window.location.href = 'login.html'; // This will redirect to login.html
+    };
+  </script>
+</body>
+</html>

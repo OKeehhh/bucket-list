@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Bucket Lists</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 80%;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #007BFF;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Your Bucket Lists</h2>
+    <table id="bucketListTable">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody id="bucketListContainer">
+        <!-- Bucket list items will be inserted here -->
+      </tbody>
+    </table>
+    <button onclick="window.location.href='main.html'">Back to Main</button>
+  </div>
+
+  <script type="module">
+    import { fetchBucketLists } from "./js/app.js";
+
+    fetchBucketLists((data) => {
+      const container = document.getElementById("bucketListContainer");
+      container.innerHTML = "";
+      data.forEach((item) => {
+        const row = document.createElement("tr");
+        
+        const titleCell = document.createElement("td");
+        titleCell.textContent = item.title;
+        
+        const descriptionCell = document.createElement("td");
+        descriptionCell.textContent = item.description;
+
+        row.appendChild(titleCell);
+        row.appendChild(descriptionCell);
+        
+        container.appendChild(row);
+      });
+    });
+  </script>
+</body>
+</html>
